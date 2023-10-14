@@ -1,39 +1,38 @@
-const Model = require('./model')
+const model = require('./model')
 
-async function agregarPais( dato ) {
-    const resultado = await new Model( dato )
-    return resultado.save()
-}
-
-async function obtenerPais( filtro ) {
-    let mi_filtro = {}
-
-    if (filtro.Pais != null) {
-        mi_filtro = { Pais: filtro.Pais }
+function get_pais( filtro_pais ) {
+    let filtro = {}
+    if (filtro_pais) {
+        filtro = { nombre: filtro_pais }
     }
-    const resultado = await Model.find( mi_filtro )
-    return resultado
+    const objeto = model.find( filtro )
+    return objeto
 }
 
+function add_pais( pais ) {
+    const objeto = new model( pais )
+    objeto.save()
+}
 
-async function actualizarPais(dato) {
-    const nuevo_objeto = await Model.findOne( { Pais: dato.Pais } )
+async function update_pais( pais ) {
+    const objeto = await model.findOne( {_id: pais.id} )
 
-    nuevo_objeto.nombre = dato.nombre
-    nuevo_objeto.apellido = dato.apellido
+    if ( objeto ) {
+        objeto.nombre = pais.nombre
     
-    const resultado = await nuevo_objeto.save()
-    return resultado
+        return resultado = await objeto.save()    
+    } else {
+        return null
+    }
 }
 
-async function eliminarPais(dato) {
-    const resultado = await Model.deleteOne( {Pais: dato.Pais} )
-    return resultado
+async function delete_pais( pais ) {
+    return await model.deleteOne({_id: pais.id})
 }
 
 module.exports = {
-    agregar:agregarPais,
-    obtener:obtenerPais,
-    actualizar:actualizarPais,
-    eliminar:eliminarPais
+    add: add_pais,
+    get: get_pais,
+    update: update_pais,
+    delete: delete_pais,
 }

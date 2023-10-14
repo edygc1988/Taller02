@@ -6,9 +6,12 @@ const req_string = {
     required: true,
 }
 
-const pais_schema = new Schema({
+const empresa_schema = new Schema({
+    ruc: req_string,
     nombre: req_string,
+    domicilio: String,
+    telefono: String,
 })
 
-const model = mongoose.model('pais', pais_schema)
+const model = mongoose.model('empresa', empresa_schema)
 module.exports = model

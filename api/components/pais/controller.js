@@ -1,37 +1,42 @@
 const storage = require('./storage')
 
-function agregarPais( dato ) {
+function get_pais( filtro_pais ) {
     return new Promise((resolve, reject) => {
-        resolve( storage.agregar( dato ) )
+        resolve( storage.get( filtro_pais ) )
     })
 }
 
-function obtenerPais( filtro ) {
+function add_pais( pais ) {
     return new Promise((resolve, reject) => {
-        resolve( storage.obtener( filtro ) )
-    })
-}
-
-function actualizarPais( dato ) {
-    return new Promise((resolve, reject) => {
-        let Pais = {
-            Pais: dato.Pais,
-            nombre: dato.nombre,
-            codigo: dato.codigo
+        if (!pais.nombre) {
+            return reject('No existen datos.')
         }
-        resolve( storage.actualizar( Pais ) )
+        storage.add( pais )
+        resolve( pais )        
     })
 }
 
-function eliminarPais( dato ) {
+function update_pais( pais ) {
     return new Promise((resolve, reject) => {
-        resolve( storage.eliminar( dato ) )
-    })    
+        let resultado = storage.update( pais )
+        if (resultado) {
+            return resolve( pais )
+        } else {
+            return reject('No existe el pais.')
+        }
+    })
+}
+
+function delete_pais( pais ) {
+    return new Promise((resolve, reject) => {
+        storage.delete( pais )
+        resolve( pais )
+    })
 }
 
 module.exports = {
-    agregarPais,
-    obtenerPais,
-    actualizarPais,
-    eliminarPais
+    get_pais,
+    add_pais,
+    update_pais,
+    delete_pais,
 }
