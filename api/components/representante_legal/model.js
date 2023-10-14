@@ -6,6 +6,15 @@ const req_string = {
     required: true,
 }
 
+const empresa_schema = new Schema({
+    ruc: req_string,
+    nombre: req_string,
+    domicilio: String,
+    telefono: String
+}, {
+    timestamps: true,
+})
+
 const representante_schema = new Schema({
     ruc: req_string,
     cedula: req_string,
@@ -14,10 +23,7 @@ const representante_schema = new Schema({
     email: String,
     domicilio: String,
     telefono: String,
-    empresa: {
-        type: Schema.ObjectId,
-        ref: 'empresa',
-    },
+    empresa: [empresa_schema]
 })
 
 const model = mongoose.model('representante', representante_schema)
