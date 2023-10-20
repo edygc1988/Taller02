@@ -23,7 +23,8 @@ const representante_schema = new Schema({
     email: String,
     domicilio: String,
     telefono: String,
-    empresa: [empresa_schema]
+    empresa: String/*,
+    empresa: [empresa_schema]*/
 })
 
 const model = mongoose.model('representante', representante_schema)
