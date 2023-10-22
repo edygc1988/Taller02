@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         guardar()
         .then((newRecord) => { // Receive the newRecord from guardar() and emit it
-            socket.emit('nuevo_registro', newRecord);
+            socket.io.emit('nuevo_registro', newRecord);
         })
         .catch((error) => {
             alert(error);
@@ -40,8 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Listen for the 'nuevo_registro' event
-    socket.on('nuevo_registro', (newRecord) => {
-        alert(JSON.stringify(newRecord));
+    socket.io.on('nuevo_registro', (newRecord) => {
         alert('Nuevo registro creado: ' + JSON.stringify(newRecord));
     });
 });
