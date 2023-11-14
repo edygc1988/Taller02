@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 app.use( express.json() )
 app.use( express.urlencoded({extended:false}) )
 
+app.use('/', express.static('src'))
 app.use('/users', userRoutes)
 app.use('/auth', authRoutes)
 //app.use('/products', productsRoutes)
