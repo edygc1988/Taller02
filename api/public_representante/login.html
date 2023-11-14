@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro y Autenticación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 20px auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Formulario de Autenticación -->
+    <form id="autenticacionForm">
+        <h2>Autenticación</h2>
+        <label for="authUsuario">Usuario:</label>
+        <input type="text" id="authUsuario" name="authUsuario" required>
+
+        <label for="authPassword">Contraseña:</label>
+        <input type="password" id="authPassword" name="authPassword" required>
+
+        <button type="button" onclick="autenticarUsuario()">Iniciar Sesión</button>
+    </form>
+
+    <script>
+        function registrarUsuario() {
+            // Aquí puedes implementar la lógica para enviar los datos del formulario de registro al servidor
+            alert('Usuario registrado correctamente.');
+            document.getElementById('registroForm').reset(); // Limpiar el formulario después de registrar
+        }
+
+        function autenticarUsuario() {
+            // Aquí puedes implementar la lógica para enviar los datos del formulario de autenticación al servidor
+            alert('Usuario autenticado correctamente.');
+            document.getElementById('autenticacionForm').reset(); // Limpiar el formulario después de autenticar
+        }
+    </script>
+
+</body>
+</html>

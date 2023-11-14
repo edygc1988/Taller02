@@ -8,7 +8,7 @@ async function conectar( url ) {
         useUnifiedTopology: true,
         dbname: 'ups'
     } )
-    .then (() => console.log('[db] - conexion exitosa.') )
+    .then (() => console.log('[db   ] - conexion exitosa.') )
     .catch( (error) => console.error( `[db] - ${error}` ) )
 }
 
