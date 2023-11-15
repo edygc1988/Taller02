@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +35,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Formulario de Registro -->
@@ -54,23 +56,62 @@
         <label for="email">Correo:</label>
         <input type="email" id="email" name="email" required>
 
+        <!-- Checkbox for role selection -->
+        <label for="rol">Administrador:</label>
+        <input type="checkbox" id="rol" name="rol" onclick="toggleAdminText()" required>
+        
+
         <button type="button" onclick="registrarUsuario()">Registrar</button>
+        <button type="button" onclick="iniciarSesion()">Iniciar Sesion</button>
     </form>
 
 
     <script>
-        function registrarUsuario() {
-            // Aquí puedes implementar la lógica para enviar los datos del formulario de registro al servidor
-            alert('Usuario registrado correctamente.');
-            document.getElementById('registroForm').reset(); // Limpiar el formulario después de registrar
+        function iniciarSesion() {
+            window.location.href = '/login';
+
         }
 
-        function autenticarUsuario() {
-            // Aquí puedes implementar la lógica para enviar los datos del formulario de autenticación al servidor
-            alert('Usuario autenticado correctamente.');
-            document.getElementById('autenticacionForm').reset(); // Limpiar el formulario después de autenticar
+        function registrarUsuario() {
+            // Datos del formulario
+            const formData = {
+                "username": document.getElementById('usuario').value,
+                "password": document.getElementById('password').value,
+                "email": document.getElementById('email').value,
+                "nombre": document.getElementById('nombre').value,
+                "apellido": document.getElementById('apellido').value,
+                "roles": [document.getElementById('rol').checked ? "admin" : "user"]
+            };
+            alert(formData.roles);
+            // Enviar solicitud al servicio de creación de usuarios
+            fetch('/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al registrar usuario');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    // Manejar la respuesta del servidor, por ejemplo, mostrar un mensaje al usuario
+                    alert('Usuario registrado correctamente');
+                    document.getElementById('registroForm').reset(); // Limpiar el formulario después de registrar
+                })
+                .catch(error => {
+                    console.error(error);
+                    // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
+                    alert('Error al registrar usuario');
+                    document.getElementById('registroForm').reset(); // Limpiar el formulario después de registrar
+                });
         }
     </script>
 
 </body>
+
 </html>
